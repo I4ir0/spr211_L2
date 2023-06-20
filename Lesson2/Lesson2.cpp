@@ -17,15 +17,15 @@ private:
 class User
 {
 public:
-    User():User{0, "" }//Delegate constructors
+    User() :User{ 0, "" }//Delegate constructors
     {
         cout << "constructor default: " << typeid(this).name() << endl;
     }
-    User(int id, string name):_id{id}, _name{name} //thish->_id=id///
+    User(int id, string name) :_id{ id }, _name{ name } //thish->_id=id///
     {
-      _interests = nullptr;
-      _size = 0;
-       cout << "constructor with params: " << typeid(this).name() << endl;
+        _interests = nullptr;
+        _size = 0;
+        cout << "constructor with params: " << typeid(this).name() << endl;
     }
     ~User()
     {
@@ -33,17 +33,50 @@ public:
         delete[] _interests;
 
     }
+    void setInterests(Interests interests)
+    {
+
+        //_interests = new Interests[++_size];// + 1 in massive
+        Interests* tempInterests = new Interests[_size]; //(_size++)старый размер после создани€ масива сайз увел на 1
+        for (size_t i = 0; i < _size - 1; i++)
+            tempInterests[i] = _interests[i];
+
+        if (_interests != nullptr)
+            delete[] _interests;
+        _interests = new Interests[_size + 1];
+        for (size_t i = 0; i < _size; i++)
+            _interests[i] = tempInterests[i];
+        _interests[_size] = interests;
+        _size++;
+        delete[] tempInterests;
+    }
+    void Print()
+    {
+        cout << "id: " << _id << endl;
+        cout << "name: " << _name << endl;
+        for (size_t i = 0; i < _size; i++)
+        {
+            cout << "Interest: " << _interests[i].getThing() << endl;
+        }
+    }
 private:
     int _id;
     string _name;
     Interests* _interests;
     int _size;
 };
-int main()
+    
+    
+    
+    
+    int main()
 {
     User user(1,"Alex");
+    user.setInterests(*new Interests("Football"));
+    user.setInterests(*new Interests("XBOX 360"));
+    user.setInterests(*new Interests("Developer c++"));
 
-
+    user.Print();
     system("pause");
     return 0;
 }
