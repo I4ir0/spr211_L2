@@ -37,17 +37,17 @@ public:
     {
 
         //_interests = new Interests[++_size];// + 1 in massive
-        Interests* tempInterests = new Interests[_size]; //(_size++)старый размер после создани€ масива сайз увел на 1
-        for (size_t i = 0; i < _size - 1; i++)
+        Interests* tempInterests = new Interests[_size]; 
+        for (size_t i = 0; i < (_size - 1); i++)
             tempInterests[i] = _interests[i];
 
         if (_interests != nullptr)
             delete[] _interests;
-        _interests = new Interests[_size + 1];
+        _interests = new Interests[(_size + 1)];
         for (size_t i = 0; i < _size; i++)
             _interests[i] = tempInterests[i];
-        _interests[_size] = interests;
-        _size++;
+        _interests[((++_size)-1)] = interests;
+       
         delete[] tempInterests;
     }
     void Print()
