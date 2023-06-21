@@ -19,17 +19,17 @@ class User
 public:
     User() :User{ 0, "" }//Delegate constructors
     {
-        cout << "constructor default: " << typeid(this).name() << endl;
+       // cout << "constructor default: " << typeid(this).name() << endl;
     }
     User(int id, string name) :_id{ id }, _name{ name } //thish->_id=id///
     {
         _interests = nullptr;
         _size = 0;
-        cout << "constructor with params: " << typeid(this).name() << endl;
+       // cout << "constructor with params: " << typeid(this).name() << endl;
     }
     ~User()
     {
-        cout << "destructor: " << this << endl;
+       // cout << "destructor: " << this << endl;
         delete[] _interests;
 
     }
@@ -38,7 +38,7 @@ public:
 
         //_interests = new Interests[++_size];// + 1 in massive
         Interests* tempInterests = new Interests[_size]; 
-        for (size_t i = 0; i < (_size - 1); i++)
+        for (size_t i = 0; i < _size; i++)
             tempInterests[i] = _interests[i];
 
         if (_interests != nullptr)
@@ -50,7 +50,7 @@ public:
        
         delete[] tempInterests;
     }
-    void Print()
+    void print()
     {
         cout << "id: " << _id << endl;
         cout << "name: " << _name << endl;
@@ -71,30 +71,45 @@ private:
     
     int main()
 {
-    User user(1,"Alex");
-    user.setInterests(*new Interests("Football"));
-    user.setInterests(*new Interests("XBOX 360"));
-    user.setInterests(*new Interests("Developer c++"));
+    User Alex(1,"Alex");
+    Alex.setInterests(*new Interests("Football"));
+    Alex.setInterests(*new Interests("XBOX 360"));
+    Alex.setInterests(*new Interests("Developer c++"));
+    Alex.print();
+    cout << "---------------------" << endl;
+    User Bob(2, "Bob");
+    Bob.setInterests(*new Interests("Cards"));
+    Bob.setInterests(*new Interests("Tenis"));
+    Bob.print();
+    cout << "---------------------" << endl;
+    User Tom(3, "Tom");
+    Tom.setInterests(*new Interests("Football"));
+    Tom.setInterests(*new Interests("Sony playstation 5"));
+    Tom.setInterests(*new Interests("Developer JavaScript"));
+    Tom.setInterests(*new Interests("Films"));
 
-    user.Print();
+    Tom.print();
+    cout << "---------------------" << endl;
+
+
     system("pause");
     return 0;
 }
 
 Interests::Interests()
 {
-    cout << "constructor default: " << typeid(this).name() << endl;
+    //cout << "constructor default: " << typeid(this).name() << endl;
 }
 
 Interests::Interests(string thing)
 {
     this->thing = thing;
-    cout << "constructor with param: " << typeid(this).name() <<  endl;
+   // cout << "constructor with param: " << typeid(this).name() <<  endl;
 }
 
 Interests::~Interests()
 {
-    cout << "deconstructor: " << typeid(this).name() <<  endl;
+   // cout << "deconstructor: " << typeid(this).name() <<  endl;
 
 }
 
